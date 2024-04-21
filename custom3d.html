@@ -37,6 +37,7 @@
         // Load OBJ model
         const objLoader = new OBJLoader();
         objLoader.load('Car.obj', (root) => {
+          root.scale.set(0.05, 0.05, 0.05);
           scene.add(root);
         });
 
