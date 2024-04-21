@@ -36,7 +36,7 @@ function main() {
 		const repeats = planeSize / 2;
 		texture.repeat.set( repeats, repeats );
 
-		const planeGeo = new THREE.PlaneGeometry( planeSize, planeSize );
+		const planeGeo = new THREE.PlaneGeometry( planeSize, planeSize );//got this from the website that was provided in the assignment
 		const planeMat = new THREE.MeshPhongMaterial( {
 			map: texture,
 			side: THREE.DoubleSide,
@@ -52,7 +52,7 @@ function main() {
 		const skyColor = 0xB1E1FF; // light blue
 		const groundColor = 0xB97A20; // brownish orange
 		const intensity = 2;
-		const light = new THREE.HemisphereLight( skyColor, groundColor, intensity );
+		const light = new THREE.HemisphereLight( skyColor, groundColor, intensity );;//got this from the website that was provided in the assignment
 		scene.add( light );
 
 	}
@@ -72,10 +72,10 @@ function main() {
 	{
         const mtlLoader = new MTLLoader();
         const objLoader = new OBJLoader();
-        mtlLoader.load('Avent_sport.mtl', (mtl) => {
+        mtlLoader.load('../lib/Avent_sport.mtl', (mtl) => {
         mtl.preload();
         objLoader.setMaterials(mtl);
-        objLoader.load('Avent_sport.obj', (root) => {
+        objLoader.load('../lib/Avent_sport.obj', (root) => {//Credit: https://free3d.com/3d-model/lamborghini-aventador-sport-44634.html
         const scaleFactor = 5.0;
         root.scale.set(scaleFactor, scaleFactor, scaleFactor);
         root.position.y = 2.31;
@@ -88,7 +88,7 @@ function main() {
 
 	}
     {
-        // Add geometry definitions
+        
         const boxWidth = 1;
         const boxHeight = 1;
         const boxDepth = 1;
@@ -102,7 +102,7 @@ function main() {
         const pyramidHeight = 1;
         const pyramidGeometry = new THREE.ConeGeometry(pyramidRadius, pyramidHeight, 4);
 
-        // Create makeInstance function
+        
         function makeInstance(geometry, color, x,y,z, texture) {
             const material = new THREE.MeshPhongMaterial({ map: texture });
             const mesh = new THREE.Mesh(geometry, material);
@@ -112,13 +112,11 @@ function main() {
             mesh.position.z = z;
             return mesh;
         }
-
-        // Load texture
+  
         const loader = new THREE.TextureLoader();
-        const texture = loader.load('coolCat.jpg');
+        const texture = loader.load('../lib/coolCat.jpg');
         texture.colorSpace = THREE.SRGBColorSpace;
 
-        // Create objects array
         objects = [
             makeInstance(boxGeometry, 0x44aa88, -5,5,0, texture),
             makeInstance(cylinderGeometry, 0x8844aa, -5,5,3, null),
@@ -152,7 +150,7 @@ function main() {
 			camera.updateProjectionMatrix();
 
 		}
-        time *= 0.001; // convert time to seconds
+        time *= 0.001;
         objects.forEach((obj, ndx) => {
         const speed = 1 + ndx * 0.1;
         const rot = time * speed;
