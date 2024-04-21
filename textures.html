@@ -10,7 +10,7 @@
   <body>
     <canvas id="c"></canvas>
     <script type="module">
-      import * as THREE from './three/build/three.module.js';
+      import * as THREE from 'three';
 
       function main() {
         const canvas = document.querySelector('#c');
@@ -25,32 +25,42 @@
         camera.position.z = 2;
 
         const scene = new THREE.Scene();
-
+        //cube
         const boxWidth = 1;
         const boxHeight = 1;
         const boxDepth = 1;
-        const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
+        const boxGeometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
+        //sphere
+        const cylinderRadius = 0.5;
+        const cylinderHeight = 1;
+        const cylinderGeometry = new THREE.CylinderGeometry(cylinderRadius, cylinderRadius, cylinderHeight);
+        //pyramid
+        const pyramidRadius = 0.5;
+        const pyramidHeight = 1;
+        const pyramidGeometry = new THREE.ConeGeometry(pyramidRadius, pyramidHeight, 4);
+
+
 
 
         function makeInstance(geometry, color, x, texture) {
           const material = new THREE.MeshPhongMaterial({map: texture});
 
-          const cube = new THREE.Mesh(geometry, material);
-          scene.add(cube);
+          const mesh = new THREE.Mesh(geometry, material);
+          scene.add(mesh);
 
-          cube.position.x = x;
+          mesh.position.x = x;
 
-          return cube;
+          return mesh;
         }
 
         const loader = new THREE.TextureLoader();
         const texture = loader.load('coolCat.jpg');
         texture.colorSpace = THREE.SRGBColorSpace;
 
-        const cubes = [
-            makeInstance(geometry, 0x44aa88,  0, texture),
-            makeInstance(geometry, 0x8844aa, -2, texture),
-            makeInstance(geometry, 0xaa8844,  2, texture),
+        const objects = [
+            makeInstance(boxGeometry, 0x44aa88,  0, texture),
+            makeInstance(cylinderGeometry, 0x8844aa, -2, 0),
+            makeInstance(pyramidGeometry, 0xaa8844,  2, 0),
         ];
 
 
@@ -63,11 +73,11 @@
         function render(time) {
           time *= 0.001;  // convert time to seconds
 
-          cubes.forEach((cube, ndx) => {
+          objects.forEach((obj, ndx) => {
             const speed = 1 + ndx * .1;
             const rot = time * speed;
-            cube.rotation.x = rot;
-            cube.rotation.y = rot;
+            obj.rotation.x = rot;
+            obj.rotation.y = rot;
           });
 
           renderer.render(scene, camera);

@@ -1,13 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title> CSE 160 Lab 0</title>
+  <meta charset="utf-8">
+  <title>My first three.js app</title>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.163.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.163.0/examples/jsm/"
+      }
+    }
+  </script>
+  <style>
+    body {
+      margin: 0;
+    }
+    #c {
+      width: 600px;
+      height: 400px;
+    }
+  </style>
 </head>
 <body>
-    <label for="Assignment5A">Assignment 0:</label>
-    <a href="fundamentals.html">Link to fundamentals.html</a>
-    <a href="textures.html">Link to textures.html</a>
-    <a href="custom3d.html">Link to custom3d.html</a>
-
+  <canvas id="c"></canvas>
+  <script type="module" src="/main.js"></script>
 </body>
 </html>
