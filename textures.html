@@ -15,6 +15,7 @@
       function main() {
         const canvas = document.querySelector('#c');
         const renderer = new THREE.WebGLRenderer({antialias: true, canvas});
+      
 
         const fov = 75;
         const aspect = 2;  // the canvas default
@@ -31,8 +32,8 @@
         const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
 
 
-        function makeInstance(geometry, color, x) {
-          const material = new THREE.MeshPhongMaterial({color});
+        function makeInstance(geometry, color, x, texture) {
+          const material = new THREE.MeshPhongMaterial({map: texture});
 
           const cube = new THREE.Mesh(geometry, material);
           scene.add(cube);
@@ -41,10 +42,15 @@
 
           return cube;
         }
+
+        const loader = new THREE.TextureLoader();
+        const texture = loader.load('coolCat.jpg');
+        texture.colorSpace = THREE.SRGBColorSpace;
+
         const cubes = [
-            makeInstance(geometry, 0x44aa88,  0),
-            makeInstance(geometry, 0x8844aa, -2),
-            makeInstance(geometry, 0xaa8844,  2),
+            makeInstance(geometry, 0x44aa88,  0, texture),
+            makeInstance(geometry, 0x8844aa, -2, texture),
+            makeInstance(geometry, 0xaa8844,  2, texture),
         ];
 
 

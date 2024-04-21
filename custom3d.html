@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>High-Level-Graphics</title>
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="c"></canvas>
+    <script type="module">
+      import * as THREE from './node_modules/three/build/three.module.js';
+      import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+
+      function main() {
+        const canvas = document.querySelector('#c');
+        const renderer = new THREE.WebGLRenderer({ antialias: true, canvas });
+        const fov = 75;
+        const aspect = 2; // the canvas default
+        const near = 0.1;
+        const far = 5;
+        const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+        camera.position.z = 2;
+        const scene = new THREE.Scene();
+
+        // Lighting
+        const hemiLight = new THREE.HemisphereLight(0xffffff, 0x080820, 1);
+        scene.add(hemiLight);
+
+        const dirLight = new THREE.DirectionalLight(0xffffff, 1);
+        dirLight.position.set(-1, 2, 4);
+        scene.add(dirLight);
+
+        // Load OBJ model
+        const objLoader = new OBJLoader();
+        objLoader.load('Car.obj', (root) => {
+          scene.add(root);
+        });
+
+        function render(time) {
+          time *= 0.001; // convert time to seconds
+
+          renderer.render(scene, camera);
+          requestAnimationFrame(render);
+        }
+
+        requestAnimationFrame(render);
+      }
+
+      main();
+    </script>
+  </body>
+</html>
