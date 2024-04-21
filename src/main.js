@@ -72,10 +72,10 @@ function main() {
 	{
         const mtlLoader = new MTLLoader();
         const objLoader = new OBJLoader();
-        mtlLoader.load('/lib/Avent_sport.mtl', (mtl) => {
+        mtlLoader.load('lib/Avent_sport.mtl', (mtl) => {
         mtl.preload();
         objLoader.setMaterials(mtl);
-        objLoader.load('/lib/Avent_sport.obj', (root) => {//Credit: https://free3d.com/3d-model/lamborghini-aventador-sport-44634.html
+        objLoader.load('lib/Avent_sport.obj', (root) => {//Credit: https://free3d.com/3d-model/lamborghini-aventador-sport-44634.html
         const scaleFactor = 5.0;
         root.scale.set(scaleFactor, scaleFactor, scaleFactor);
         root.position.y = 2.31;
@@ -114,7 +114,7 @@ function main() {
         }
   
         const loader = new THREE.TextureLoader();
-        const texture = loader.load('/lib/coolCat.jpg');
+        const texture = loader.load('lib/coolCat.jpg');
         texture.colorSpace = THREE.SRGBColorSpace;
 
         objects = [
